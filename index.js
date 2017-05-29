@@ -83,7 +83,7 @@ module.exports = function(urlString) {
     let split = attribute.split('=');
     url.queryParams[split[0]] = split[1];
     try {
-      // console.log(split[0], "params", JSON.parse(split[1].replace('/', '')));
+      // refered to as q={}
       url.queryParams[split[0]] = JSON.parse(decodeURIComponent(split[1].replace('/','')));
     } catch(e) {
       // pass
@@ -102,10 +102,15 @@ module.exports = function(urlString) {
   };
   url.toString = function() {
     this.baseurl = this.getBaseurl();
+    let params = {};
+    // in case some parameter has array, refered as q=[{}]
+    Object.entries(this.queryParams).forEach( ([key, value]) => {
+      params[key] = (typeof value !== 'string')? JSON.stringify(value) : value;
+    });
     return buildUrl(this.baseurl, {
       path: this.path,
       hash: this.hash,
-      queryParams: this.queryParams
+      queryParams: params
     });
   };
   return url;

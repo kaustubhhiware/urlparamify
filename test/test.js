@@ -118,7 +118,7 @@ var Expected = {
     queryParams: { id: [ '1234', '5678' ] },
     hash: null,
     getBaseurl: 'http://google.com',
-    toString: 'http://google.com/page?id=1234,5678'
+    toString: 'http://google.com/page?id=["1234","5678"]'
   },
 
   'http://google.com/path?q=data#top' : {
@@ -157,7 +157,7 @@ var Expected = {
     queryParams: { q: [ 1, 2 ] },
     hash: null,
     getBaseurl: 'google.com',
-    toString: 'google.com/path?q=1,2' 
+    toString: 'google.com/path?q=[1,2]' 
   },
 
   '/path?q=data' : {
@@ -174,10 +174,34 @@ var Expected = {
 
   },
 
+  // reference to q={}
+  'google.com/path?q={"c":1}' : {
+    href: 'google.com/path/?q={"c":1}',
+    protocol: '',
+    host: 'google.com',
+    baseurl: 'google.com',
+    path: 'path',
+    query: 'q={"c":1}',
+    queryParams: { q: { c: 1 } },
+    hash: null,
+    getBaseurl: 'google.com',
+    toString: 'google.com/path?q={"c":1}'
+  },
 
-  // 'google.com/path?q={c:1}' : {
+  // reference to q=[{}]
+  '/path?sort=[{"top":"desc"}]&limit=50&debug=true': {
+    href: '/path/?sort=[{"top":"desc"}]&limit=50&debug=true',
+    protocol: '',
+    host: '',
+    baseurl: '',
+    path: 'path',
+    query: 'sort=[{"top":"desc"}]&limit=50&debug=true',
+    queryParams: { sort: [ [Object] ], limit: 50, debug: true },
+    hash: null,
+    getBaseurl: '',
+    toString: '/path?sort=[{"top":"desc"}]&limit=50&debug=true'
+  },
 
-  // }
 };
 
 Object.keys(Expected).forEach(function(u) {
