@@ -4,6 +4,19 @@ var assert = require('assert');
 var urlparamify = require('../index');
 
 var Expected = {
+  '' : {
+    href: '',
+    protocol: '',
+    host: '',
+    baseurl: '',
+    path: '',
+    query: '',
+    queryParams: {},
+    hash: null,
+    getBaseurl: '',
+    toString: ''
+  },
+
   'http://google.com' : {
     href: 'http://google.com',
     protocol: 'http',
@@ -14,7 +27,7 @@ var Expected = {
     queryParams: {},
     hash: null,
     getBaseurl: 'http://google.com',
-    toString: 'http://google.com?'
+    toString: 'http://google.com'
   },
 
   'http://google.com/' : { 
@@ -27,7 +40,7 @@ var Expected = {
     queryParams: {},
     hash: null,
     getBaseurl: 'http://google.com',
-    toString: 'http://google.com?'
+    toString: 'http://google.com'
   },
 
   'google.com': {
@@ -40,7 +53,7 @@ var Expected = {
     queryParams: {},
     hash: null,
     getBaseurl: 'google.com',
-    toString: 'google.com?'
+    toString: 'google.com'
   },
 
   'http://google.com/path' : {
@@ -53,7 +66,20 @@ var Expected = {
     queryParams: {},
     hash: null,
     getBaseurl: 'http://google.com',
-    toString: 'http://google.com/path?'
+    toString: 'http://google.com/path'
+  },
+
+  'http://google.com/path/' : {
+    href: 'http://google.com/path/',
+    protocol: 'http',
+    host: 'google.com',
+    baseurl: 'http://google.com',
+    path: 'path',
+    query: '',
+    queryParams: {},
+    hash: null,
+    getBaseurl: 'http://google.com',
+    toString: 'http://google.com/path'
   },
 
   'http://google.com/path/path1?q=data' : {
@@ -69,17 +95,30 @@ var Expected = {
     toString: 'http://google.com/path/path1?q=data'
   },
 
-  'https://localhost:3000' : {
-    href: 'https://localhost:3000',
+  'https://localhost:3000?q=data' : {
+    href: 'https://localhost:3000/?q=data',
     protocol: 'https',
     host: 'localhost:3000',
     baseurl: 'https://localhost:3000',
     path: '',
-    query: '',
-    queryParams: {},
+    query: 'q=data',
+    queryParams: { q: 'data' },
     hash: null,
     getBaseurl: 'https://localhost:3000',
-    toString: 'https://localhost:3000?'
+    toString: 'https://localhost:3000?q=data'
+  },
+
+  'google.com?q=data' : {
+    href: 'google.com/?q=data',
+    protocol: '',
+    host: 'google.com',
+    baseurl: 'google.com',
+    path: '',
+    query: 'q=data',
+    queryParams: { q: 'data' },
+    hash: null,
+    getBaseurl: 'google.com',
+    toString: 'google.com?q=data'
   },
 
   'http://127.0.0.1:8080/path?q=entity' : {

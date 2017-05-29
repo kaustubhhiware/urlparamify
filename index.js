@@ -15,6 +15,7 @@ module.exports = function(urlString) {
   if(!urlString) {
     urlString = "";
   } else if (urlString.constructor != String) {
+    // cannot write test for this case
     return urlString;
   }
 
@@ -49,13 +50,8 @@ module.exports = function(urlString) {
     index += hostindex + 1;
   } else {
     // till the very end
-    if(onlyquestion !== -1) {
-      url.host = urlString.substr(0, onlyquestion);
-      index = onlyquestion + 1;
-    } else {
-      url.host = urlString.slice(index);
-      index = urlString.length;
-    }
+    url.host = urlString.slice(index);
+    index = urlString.length;
   }
   // remove unnecessary trailing /
   url.baseurl = (urlString[index-1] === '/')? urlString.substr(0, index-1): urlString.substr(0, index);
@@ -63,17 +59,13 @@ module.exports = function(urlString) {
   let question = emptySubstrFind(urlString, index, '?');
   if(question !== -1) {
     url.path = urlString.substr(index, question);
-    // remove last /
-    // intently written twice
-    url.path = (url.path.substr(-1) === '/') ? url.path.slice(0, -1) : url.path;
-    url.path = (url.path.substr(-1) === '/') ? url.path.slice(0, -1) : url.path;
     index += question + 1;
   } else {
     url.path = urlString.slice(index);
     index = urlString.length;
   }
   // remove unnecessary trailing /
-  url.path = (url.path.substr(-1) === '/')? url.path.slice(0, -1): url.path;
+  url.path = (url.path.substr(-1) === '/') ? url.path.slice(0, -1) : url.path;
 
   let hash = urlString.slice(index)? urlString.slice(index).lastIndexOf('#'): -1;
   url.query = (hash === -1) ? urlString.slice(index) : urlString.substr(index, hash);
@@ -81,13 +73,12 @@ module.exports = function(urlString) {
   url.queryParams = {};
   queryBreak.forEach(function(attribute) {
     let split = attribute.split('=');
-    url.queryParams[split[0]] = split[1];
     try {
       // refered to as q={}
       url.queryParams[split[0]] = JSON.parse(decodeURIComponent(split[1].replace('/','')));
     } catch(e) {
-      // pass
-      }
+      url.queryParams[split[0]] = split[1];  
+    }
   });
 
   if(hash !== -1) {
@@ -107,6 +98,9 @@ module.exports = function(urlString) {
     for(let key in this.queryParams) {
       let value = this.queryParams[key];
       params[key] = (typeof value !== 'string')? JSON.stringify(value) : value;
+    }
+    if(JSON.stringify(params) === '{}') {
+      params = null;
     }
     return buildUrl(this.baseurl, {
       path: this.path,

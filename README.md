@@ -1,6 +1,6 @@
 # urlparamify
 
-> Simply parameterise urls, no matter how stupid they look.
+> Parse all kinds of urls, simple or otherwise. Returns a modifiable JSON object that can be converted to a string.
 
 [![Build Status](https://travis-ci.org/kaustubhhiware/urlparamify.svg?branch=master)](https://travis-ci.org/kaustubhhiware/urlparamify) [![Coverage Status](https://coveralls.io/repos/github/kaustubhhiware/urlparamify/badge.svg?branch=master)](https://coveralls.io/github/kaustubhhiware/urlparamify?branch=master)
 
@@ -11,7 +11,7 @@ Allow for modifying urls, and generating a neat url with accomodated changes.
 
 Often you might be parsing urls, modifying some parameter using strings,
 and the whole system looks messy. [`urlparamify`](https://www.npmjs.com/package/urlparamify)
-seeks to solve that problem. Just give it a original string, which is converted
+seeks to solve that problem. Just give it a string, which is converted
 into JSON modifiable form. Mess up any way you want to with the parameters,
 playing around with the params, and just call a `Url.toString()` to get your modified url.
 
@@ -59,14 +59,14 @@ toString: [Function] }
 'http://google.com/path1?q=data&d=sad#hash'
 
 // now let's play around a bit
-> h.queryParams.q = 'diary';
+> h.queryParams.d = 'happy';
 > h.toString();
-'http://google.com/path1?q=diary&d=sad#hash'
+'http://google.com/path1?q=data&d=happy#hash'
 
 // let's try adding new query parameters
 > h.queryParams.new = 'wow';
 > h.toString();
-'http://google.com/path1?q=data&d=sad&new=wow#hash'
+'http://google.com/path1?q=data&d=happy&new=wow#hash'
 
 // I don't like hashtags. Get rid of it
 > h.hash = "";
@@ -74,10 +74,14 @@ toString: [Function] }
 'http://google.com/path1?q=data&d=sad&new=wow'
 ```
 
+Now you don't need to worry about `google.com`, `http://google.com`, `/path?search=data`, `urlparamify` has got you covered.
+
 ## Tests
 
     npm test
     npm run cover
+    istanbul cover test/test.js // The results are stored in coverage/
+
 
 
  A little reminder for myself: When ready to deploy, at a clean git history,
