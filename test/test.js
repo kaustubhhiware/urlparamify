@@ -134,6 +134,50 @@ var Expected = {
     toString: 'http://google.com/path?q=data#top'
   },
 
+  'www.something.net/?q=data' : {
+    href: 'www.something.net/?q=data',
+    protocol: '',
+    host: 'www.something.net',
+    baseurl: 'www.something.net',
+    path: '',
+    query: 'q=data',
+    queryParams: { q: 'data' },
+    hash: null,
+    getBaseurl: 'www.something.net',
+    toString: 'www.something.net?q=data'
+  },
+
+  'google.com/path/?q=[1,2]': {
+    href: 'google.com/path/?q=[1,2]',
+    protocol: '',
+    host: 'google.com',
+    baseurl: 'google.com',
+    path: 'path',
+    query: 'q=[1,2]',
+    queryParams: { q: [ 1, 2 ] },
+    hash: null,
+    getBaseurl: 'google.com',
+    toString: 'google.com/path?q=1,2' 
+  },
+
+  '/path?q=data' : {
+    href: '/path/?q=data',
+    protocol: '',
+    host: '',
+    baseurl: '',
+    path: 'path',
+    query: 'q=data',
+    queryParams: { q: 'data' },
+    hash: null,
+    getBaseurl: '',
+    toString: '/path?q=data'
+
+  },
+
+
+  // 'google.com/path?q={c:1}' : {
+
+  // }
 };
 
 Object.keys(Expected).forEach(function(u) {
