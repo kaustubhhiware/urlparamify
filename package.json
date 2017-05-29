@@ -1,0 +1,31 @@
+{
+  "name": "urlparamify",
+  "version": "1.0.0",
+  "description": "Simply parse urls, no matter how stupid it looks. Focuses on coverage rather than features",
+  "main": "index.js",
+  "devDependencies": {
+    "assert": "1.1.1",
+    "mocha": "^1.18.2"
+  },
+  "scripts": {
+    "test": "mocha --reporter spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaustubhhiware/urlparamify.git"
+  },
+  "keywords": [
+    "url",
+    "parse",
+    "KISS"
+  ],
+  "author": "Kaustubh Hiware <hiwarekaustubh@googlemail.com> (http://kaustubhhiware.github.io/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kaustubhhiware/urlparamify/issues"
+  },
+  "homepage": "https://github.com/kaustubhhiware/urlparamify#readme",
+  "dependencies": {
+    "build-url": "^1.0.9"
+  }
+}
