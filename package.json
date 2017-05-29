@@ -5,10 +5,13 @@
   "main": "index.js",
   "devDependencies": {
     "assert": "1.1.1",
+    "coveralls": "^2.13.1",
+    "istanbul": "^0.4.5",
     "mocha": "^1.18.2"
   },
   "scripts": {
-    "test": "mocha --reporter spec"
+    "test": "mocha --reporter spec",
+    "cover": "node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- -R spec test/*"
   },
   "repository": {
     "type": "git",
