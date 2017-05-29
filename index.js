@@ -104,9 +104,10 @@ module.exports = function(urlString) {
     this.baseurl = this.getBaseurl();
     let params = {};
     // in case some parameter has array, refered as q=[{}]
-    Object.entries(this.queryParams).forEach( ([key, value]) => {
+    for(let key in this.queryParams) {
+      let value = this.queryParams[key];
       params[key] = (typeof value !== 'string')? JSON.stringify(value) : value;
-    });
+    }
     return buildUrl(this.baseurl, {
       path: this.path,
       hash: this.hash,
