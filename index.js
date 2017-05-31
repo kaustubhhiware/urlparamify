@@ -15,7 +15,7 @@ module.exports = function(urlString) {
   if(!urlString) {
     urlString = "";
   } else if (urlString.constructor != String) {
-    // cannot write test for this case
+    // cannot write test for this case, help appreciated
     return urlString;
   }
 

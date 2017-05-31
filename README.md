@@ -2,6 +2,8 @@
 
 > Parse all kinds of urls, simple or otherwise. Returns a modifiable JSON object that can be converted to a string.
 
+[![NPM](https://nodei.co/npm/urlparamify.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/urlparamify/)
+
 [![Build Status](https://travis-ci.org/kaustubhhiware/urlparamify.svg?branch=master)](https://travis-ci.org/kaustubhhiware/urlparamify) [![Coverage Status](https://coveralls.io/repos/github/kaustubhhiware/urlparamify/badge.svg?branch=master)](https://coveralls.io/github/kaustubhhiware/urlparamify?branch=master)
 
 ## The why
@@ -14,6 +16,23 @@ and the whole system looks messy. [`urlparamify`](https://www.npmjs.com/package/
 seeks to solve that problem. Just give it a string, which is converted
 into JSON modifiable form. Mess up any way you want to with the parameters,
 playing around with the params, and just call a `Url.toString()` to get your modified url.
+
+Now you don't need to worry about `google.com`, `http://google.com`, `/path?search=data`, 
+`urlparamify` has got you covered.
+
+One of the legit feedbacks I received on [reddit](https://www.reddit.com/r/node/comments/6e2bga/urlparamify_parse_all_kinds_of_url_simple_and/) 
+was how is this module any different from the core url module ?
+
+Unlike the core `url`, `urlparamify` accepts any kind of url like mentioned 
+above, whereas `url` works only when a url of the format `http://google.com` is 
+provided. I started off working on a task with `url` itself, but the multiple 
+fallacies in url (url.parse('http://google.com') for instance, along with 
+multiple urls mentioned in this test suite) and other interactions suggested me 
+to make a url suited to these requirements. An instance of this module's sturdiness 
+can be seen in Usage and examples below.
+
+Find a url that breaks this module ? Let me know.
+
 
 ## Installation
 
@@ -36,9 +55,7 @@ Apart from this, each url object has the following functions:
 * `getBaseurl()`: Get the latest baseurl parameter
 * `toString()` : Convert our url object into a neatly formatted string.
 
-Refer to [Usage](#usage) for an example.
-
-## Usage
+## Usage and examples
 ```js
 > var Url = require('urlparamify');
 > var h = Url('http://google.com/path1?q=data&d=sad#hash');
@@ -58,7 +75,7 @@ toString: [Function] }
 > h.toString();
 'http://google.com/path1?q=data&d=sad#hash'
 
-// now let's play around a bit
+// let's put a smile on that face
 > h.queryParams.d = 'happy';
 > h.toString();
 'http://google.com/path1?q=data&d=happy#hash'
@@ -72,9 +89,20 @@ toString: [Function] }
 > h.hash = "";
 > h.toString();
 'http://google.com/path1?q=data&d=sad&new=wow'
-```
 
-Now you don't need to worry about `google.com`, `http://google.com`, `/path?search=data`, `urlparamify` has got you covered.
+// But what if I want to add things that were never there to begin with ?
+// With urlparamify, you can not only modify, but also add new parameters with ease
+> var g = Url('google.com')
+> g.toString()
+'google.com'
+> g.path = 'somepath'
+> g.toString()
+'google.com/somepath'
+> g.queryParams.search = 'data'
+> g.toString()
+'google.com/somepath?search=data'
+
+```
 
 ## Tests
 
