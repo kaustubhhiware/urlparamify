@@ -111,8 +111,9 @@ toString: [Function] }
     istanbul cover test/test.js // The results are stored in coverage/
 
 
+The source files are in [`src`](src/), and the distribution files are in [`dist`](dist/). Transpiled the code for ease.
 
- A little reminder for myself: When ready to deploy, at a clean git history,
+A little reminder for myself: When ready to deploy, at a clean git history,
 
     npm version patch -m "Version %s - add sweet badges"
     major.minor.patch : 1.1.0
