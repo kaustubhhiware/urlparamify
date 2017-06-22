@@ -1,6 +1,147 @@
-'use strict';
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// identity function for calling harmony imports with the correct context
+/******/ 	__webpack_require__.i = function(value) { return value; };
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, exports, __webpack_require__) {
 
-var buildUrl = require('build-url');
+/**
+ * build-url - A small library that builds a URL given it's components
+ * @version v1.0.9
+ * @link https://github.com/steverydz/build-url#readme
+ * @license MIT
+ */
+;(function () {
+  'use strict';
+
+  var root = this;
+  var previousBuildUrl = root.buildUrl;
+
+  var buildUrl = function (url, options) {
+    var queryString = [];
+    var key;
+    var builtUrl;
+
+    if (url === null) {
+      builtUrl = '';
+    } else if (typeof(url) === 'object') {
+      builtUrl = '';
+      options = url;
+    } else {
+      builtUrl = url;
+    }
+
+    if (options) {
+      if (options.path) {
+        builtUrl += '/' + options.path;
+      }
+
+      if (options.queryParams) {
+        for (key in options.queryParams) {
+          if (options.queryParams.hasOwnProperty(key)) {
+            queryString.push(key + '=' + options.queryParams[key]);
+          }
+        }
+        builtUrl += '?' + queryString.join('&');
+      }
+
+      if (options.hash) {
+        builtUrl += '#' + options.hash;
+      }
+    }
+
+    return builtUrl;
+  };
+
+  buildUrl.noConflict = function () {
+    root.buildUrl = previousBuildUrl;
+    return buildUrl;
+  };
+
+  if (true) {
+    if (typeof(module) !== 'undefined' && module.exports) {
+      exports = module.exports = buildUrl;
+    }
+    exports.buildUrl = buildUrl;
+  } else {
+    root.buildUrl = buildUrl;
+  }
+}).call(this);
+
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var buildUrl = __webpack_require__(0);
 
 function emptySubstrFind(str, from, find) {
 
@@ -110,3 +251,6 @@ module.exports = function (urlString) {
   };
   return url;
 };
+
+/***/ })
+/******/ ]);
