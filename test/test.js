@@ -1,7 +1,7 @@
 'use strict';
 
 var assert = require('assert');
-var urlparamify = require('../index');
+var urlparamify = require('../dist/index');
 
 var Expected = {
   '' : {
