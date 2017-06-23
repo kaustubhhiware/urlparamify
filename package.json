@@ -16,11 +16,13 @@
     "coveralls": "^2.13.1",
     "istanbul": "^0.4.5",
     "mocha": "^1.18.2",
-    "webpack": "^2.6.1"
+    "webpack": "^2.6.1",
+    "yargs": "^8.0.2"
   },
   "scripts": {
     "test": "mocha dist --reporter spec",
-    "cover": "node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- -R spec test/*",
+    "cover": "node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- -R spec test/test.js",
+    "cover-source": "node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- -R spec test/test.js --mode src",
     "build": "webpack",
     "transpile": "babel src --presets babel-preset-es2015 --out-dir dist"
   },

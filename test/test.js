@@ -1,8 +1,11 @@
 'use strict';
 
 var assert = require('assert');
-var urlparamify = require('../dist/index');
+var argv = require('yargs').argv;
+var mode = argv.mode || 'dist';
+var urlparamify = require('../' + mode + '/index');
 
+console.log('mode', mode);
 var Expected = {
   '' : {
     href: '',
@@ -30,7 +33,7 @@ var Expected = {
     toString: 'http://google.com'
   },
 
-  'http://google.com/' : { 
+  'http://google.com/' : {
     href: 'http://google.com/',
     protocol: 'http',
     host: 'google.com',
@@ -196,7 +199,7 @@ var Expected = {
     queryParams: { q: [ 1, 2 ] },
     hash: null,
     getBaseurl: 'google.com',
-    toString: 'google.com/path?q=[1,2]' 
+    toString: 'google.com/path?q=[1,2]'
   },
 
   '/path?q=data' : {
