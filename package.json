@@ -1,6 +1,6 @@
 {
   "name": "urlparamify",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Simply parse urls, no matter how stupid it looks. Focuses on coverage rather than features",
   "main": "./dist/index.js",
   "babel": {
